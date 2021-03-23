@@ -332,5 +332,6 @@ def signed_in_user(user):
             sess['_fresh'] = True
         yield c
 
+
 if __name__ == '__main__':
     unittest.main()

@@ -41,3 +41,6 @@ instance_type = "t2.micro"
 
 # Flask application discovery
 flask_app = "notejam/__init__.py"
+
+# Health check 
+health_check_path = "/health"

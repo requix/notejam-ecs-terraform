@@ -1,10 +1,10 @@
 variable "environment" {
   description = "A name to describe the environment we're creating."
 }
-variable "aws_profile" {
+variable "profile" {
   description = "The AWS-CLI profile for the account to create resources in."
 }
-variable "aws_region" {
+variable "region" {
   description = "The AWS region to create resources in."
 }
 variable "aws_ecs_ami" {
@@ -39,6 +39,15 @@ variable "instance_type" {
 }
 variable "flask_app" {
   description = "FLASK APP variable"  
+}
+variable "docker_image_url_flask" {
+  description = "Docker image to run in the ECS cluster"  
+}
+variable "docker_image_url_nginx" {
+  description = "Docker image to run in the ECS cluster"  
+}
+variable "health_check_path" {  
+  description = "Health check path"
 }
 variable "ssh_pubkey_file" {
   description = "Path to an SSH public key"  

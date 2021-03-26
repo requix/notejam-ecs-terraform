@@ -42,7 +42,7 @@ resource "aws_launch_configuration" "launch" {
   name_prefix          = "${var.environment}_${var.cluster}_${var.instance_group}_"
   image_id             = var.aws_ami != "" ? var.aws_ami : data.aws_ami.latest_ecs_ami.image_id
   instance_type        = var.instance_type
-  security_groups      = ["${aws_security_group.instance.id}"]
+  security_groups      = [aws_security_group.instance.id]
   user_data            = data.template_file.user_data.rendered
   iam_instance_profile = var.iam_instance_profile_id
   key_name             = var.key_name

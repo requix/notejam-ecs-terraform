@@ -5,6 +5,7 @@ module "alb" {
   alb_name          = "${var.environment}-${var.cluster}"
   vpc_id            = module.network.vpc_id
   public_subnet_ids = module.network.public_subnet_ids
+  health_check_path = var.health_check_path
 }
 
 resource "aws_security_group_rule" "alb_to_ecs" {

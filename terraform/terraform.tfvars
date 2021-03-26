@@ -2,10 +2,10 @@
 environment = "production"
 
 # The AWS-CLI profile for the account to create resources in.
-aws_profile = ""
+profile = ""
 
 # The AWS region to create resources in.
-aws_region = "eu-central-1"
+region = "eu-central-1"
 
 # The AMI to seed ECS instances with.
 # Leave empty to use the latest Linux 2 ECS-optimized AMI by Amazon.
@@ -47,10 +47,3 @@ health_check_path = "/healthcheck"
 
 # Path to an SSH public key
 ssh_pubkey_file = "~/.ssh/id_rsa.pub"
-
-# Notejam app docker image
-docker_image_url_flask = ""
-
-# Nginx docker image
-docker_image_url_nginx = ""
-

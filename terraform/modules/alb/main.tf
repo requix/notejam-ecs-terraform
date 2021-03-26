@@ -18,7 +18,7 @@ resource "aws_alb_target_group" "default" {
 resource "aws_alb" "alb" {
   name            = var.alb_name
   subnets         = var.public_subnet_ids
-  security_groups = ["${aws_security_group.alb.id}"]
+  security_groups = [aws_security_group.alb.id]
 
   tags = {
     Environment = var.environment

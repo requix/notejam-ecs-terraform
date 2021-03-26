@@ -15,7 +15,8 @@ module "ecs_instances" {
   key_name                = var.key_name
   load_balancers          = var.load_balancers
   depends_id              = module.network.depends_id
-  custom_userdata         = var.custom_userdata  
+  docker_image_url_flask  = var.docker_image_url_flask
+  docker_image_url_nginx  = var.docker_image_url_nginx
 }
 
 resource "aws_ecs_cluster" "cluster" {

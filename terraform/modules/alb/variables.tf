@@ -22,6 +22,7 @@ variable "deregistration_delay" {
 }
 
 variable "health_check_path" {  
+  default = "/healthcheck"
   description = "Health check path"
 }
 

@@ -2,7 +2,7 @@
 environment = "production"
 
 # The AWS-CLI profile for the account to create resources in.
-aws_profile = "default"
+aws_profile = ""
 
 # The AWS region to create resources in.
 aws_region = "eu-central-1"
@@ -44,3 +44,10 @@ flask_app = "notejam/__init__.py"
 
 # Health check 
 health_check_path = "/health"
+
+# Notejam app docker image
+docker_image_url_flask = ""
+
+# Nginx docker image
+docker_image_url_nginx = ""
+

@@ -43,7 +43,7 @@ instance_type = "t2.micro"
 flask_app = "notejam/__init__.py"
 
 # Health check 
-health_check_path = "/health"
+health_check_path = "/healthcheck"
 
 # Notejam app docker image
 docker_image_url_flask = ""

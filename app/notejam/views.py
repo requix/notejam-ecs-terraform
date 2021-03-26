@@ -2,8 +2,7 @@ from datetime import date
 import hashlib
 
 from flask import render_template, flash, request, redirect, url_for, abort
-from flask_login import (login_user, login_required, logout_user,
-current_user)
+from flask_login import (login_user, login_required, logout_user, current_user)
 from flask_mail import Message
 
 from notejam import app, db, login_manager, mail
@@ -15,6 +14,11 @@ DeleteForm, ChangePasswordForm, ForgotPasswordForm)
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
+
+
+@app.route('/healthcheck')
+def healthcheck():
+    return ''
 
 
 @app.route('/')

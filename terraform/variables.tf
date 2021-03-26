@@ -40,6 +40,9 @@ variable "instance_type" {
 variable "flask_app" {
   description = "FLASK APP variable"  
 }
+variable "ssh_pubkey_file" {
+  description = "Path to an SSH public key"  
+}
 
 output "default_alb_target_group" {
   value = module.ecs.default_alb_target_group

@@ -45,6 +45,9 @@ flask_app = "notejam/__init__.py"
 # Health check 
 health_check_path = "/healthcheck"
 
+# Path to an SSH public key
+ssh_pubkey_file = "~/.ssh/id_rsa.pub"
+
 # Notejam app docker image
 docker_image_url_flask = ""
 

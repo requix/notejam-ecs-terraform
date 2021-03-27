@@ -19,6 +19,7 @@ module "rds" {
   rds_username         = var.rds_username
   rds_password         = var.rds_password
   rds_instance_class   = var.rds_instance_class
+  ecs_security_group   = module.ecs_instances.ecs_instance_security_group_id
 }
 
 module "ecs_instances" {
@@ -41,6 +42,10 @@ module "ecs_instances" {
   docker_image_url_flask  = var.docker_image_url_flask
   docker_image_url_nginx  = var.docker_image_url_nginx
   rds_hostname            = module.rds.rds_cluster_endpoint
+  rds_db_name             = var.rds_db_name
+  rds_username            = var.rds_username
+  rds_password            = var.rds_password
+  flask_app               = var.flask_app
 }
 
 resource "aws_ecs_cluster" "cluster" {

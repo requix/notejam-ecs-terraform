@@ -67,8 +67,20 @@ variable "ecs_config" {
   description = "Specify ecs configuration or get it from S3. Example: aws s3 cp s3://some-bucket/ecs.config /etc/ecs/ecs.config"
 }
 
-variable "rds_hostname" {
+variable "rds_hostname" {  
   description = "Provisioned RDS host name"
+}
+
+variable "rds_db_name" {
+  description = "RDS database name"  
+}
+
+variable "rds_username" {
+  description = "RDS database username"
+}
+
+variable "rds_password" {
+  description = "RDS database password"
 }
 
 variable "docker_image_url_flask" {
@@ -77,4 +89,8 @@ variable "docker_image_url_flask" {
 
 variable "docker_image_url_nginx" {
   description = "Docker image to run in the ECS cluster"  
+}
+
+variable "flask_app" {
+  description = "FLASK APP variable"  
 }

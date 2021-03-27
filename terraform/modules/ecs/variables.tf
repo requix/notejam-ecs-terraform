@@ -93,3 +93,7 @@ variable "docker_image_url_flask" {
 variable "docker_image_url_nginx" {
   description = "Docker image to run in the ECS cluster"  
 }
+
+variable "flask_app" {
+  description = "FLASK APP variable"  
+}

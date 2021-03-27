@@ -112,8 +112,7 @@ data "template_file" "app" {
 
   vars = {
     docker_image_url_flask  = var.docker_image_url_flask
-    docker_image_url_nginx  = var.docker_image_url_nginx
-    region                  = var.region
+    docker_image_url_nginx  = var.docker_image_url_nginx    
     flask_app               = var.flask_app
     rds_db_name             = var.rds_db_name
     rds_username            = var.rds_username

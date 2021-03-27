@@ -6,6 +6,15 @@ variable "vpc_id" {
   description = "The VPC id"
 }
 
+variable "private_subnet_ids" {
+  type        = list
+  description = "List of private subnet ids for every availability zone"
+}
+
+variable "ecs_security_group" {
+  description = "Security group id of ECS instance"
+}
+
 variable "rds_db_name" {
   description = "RDS database name"
   default     = "mydb"

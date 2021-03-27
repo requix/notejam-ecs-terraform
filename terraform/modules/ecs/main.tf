@@ -1,3 +1,26 @@
+module "network" {
+  source               = "../network"
+  
+  environment          = var.environment
+  vpc_cidr             = var.vpc_cidr
+  public_subnet_cidrs  = var.public_subnet_cidrs
+  private_subnet_cidrs = var.private_subnet_cidrs
+  availability_zones   = var.availability_zones
+  depends_id           = ""
+}
+
+module "rds" {
+  source               = "../rds"
+  
+  environment          = var.environment
+  vpc_id               = module.network.vpc_id
+  private_subnet_ids   = module.network.private_subnet_ids
+  rds_db_name          = var.rds_db_name
+  rds_username         = var.rds_username
+  rds_password         = var.rds_password
+  rds_instance_class   = var.rds_instance_class
+}
+
 module "ecs_instances" {
   source = "../ecs_instances"
 
@@ -17,6 +40,7 @@ module "ecs_instances" {
   depends_id              = module.network.depends_id
   docker_image_url_flask  = var.docker_image_url_flask
   docker_image_url_nginx  = var.docker_image_url_nginx
+  rds_hostname            = module.rds.rds_cluster_endpoint
 }
 
 resource "aws_ecs_cluster" "cluster" {

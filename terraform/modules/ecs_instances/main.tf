@@ -118,6 +118,6 @@ data "template_file" "app" {
     rds_db_name             = var.rds_db_name
     rds_username            = var.rds_username
     rds_password            = var.rds_password
-    rds_hostname            = aws_rds_cluster.production.endpoint    
+    rds_hostname            = var.rds_hostname
   }
 }

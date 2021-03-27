@@ -1,6 +1,9 @@
 # A name to describe the environment we're creating.
 environment = "production"
 
+# A name of cluster.
+cluster = "notejam-ecs-cluster"
+
 # The AWS-CLI profile for the account to create resources in.
 profile = ""
 

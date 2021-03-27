@@ -31,5 +31,4 @@ variable "rds_password" {
 
 variable "rds_instance_class" {
   description = "RDS instance type"
-  default     = "db.t2.micro"
 }

@@ -111,6 +111,7 @@ data "template_file" "app" {
   template = "${file("${path.module}/templates/flask_app.json.tpl")}"
 
   vars = {
+    region                  = var.region
     docker_image_url_flask  = var.docker_image_url_flask
     docker_image_url_nginx  = var.docker_image_url_nginx    
     flask_app               = var.flask_app
@@ -118,5 +119,25 @@ data "template_file" "app" {
     rds_username            = var.rds_username
     rds_password            = var.rds_password
     rds_hostname            = var.rds_hostname
+  }
+}
+
+resource "aws_ecs_task_definition" "app" {
+  family                = "flask-app"
+  container_definitions = data.template_file.app.rendered
+  depends_on            = [var.rds_cluster]
+}
+
+resource "aws_ecs_service" "production" {
+  name            = "${var.cluster}-service"
+  cluster         = var.aws_ecs_cluster_id
+  task_definition = aws_ecs_task_definition.app.arn
+  iam_role        = var.ecs_instance_role_arn
+  depends_on      = [var.aws_alb_http_listener, var.ecs_instance_ec2_role]
+
+  load_balancer {
+    target_group_arn = var.aws_alb_target_group
+    container_name   = "nginx"
+    container_port   = 80
   }
 }

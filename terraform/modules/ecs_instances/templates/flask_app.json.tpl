@@ -43,7 +43,8 @@
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "/ecs/notejam-flask",        
+        "awslogs-group": "/ecs/notejam-flask",
+        "awslogs-region": "${region}",   
         "awslogs-stream-prefix": "notejam-flask-log-stream"
       }
     }
@@ -65,7 +66,8 @@
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "/ecs/nginx",        
+        "awslogs-group": "/ecs/nginx",
+        "awslogs-region": "${region}",   
         "awslogs-stream-prefix": "nginx-log-stream"
       }
     }

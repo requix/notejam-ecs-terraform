@@ -14,6 +14,7 @@ provider "aws" {
 module "ecs" {
   source = "./modules/ecs"
 
+  region                 = var.region
   environment            = var.environment
   cluster                = var.cluster
   vpc_cidr               = var.vpc_cidr

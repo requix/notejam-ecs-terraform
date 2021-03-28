@@ -25,6 +25,7 @@ module "rds" {
 module "ecs_instances" {
   source = "../ecs_instances"
 
+  region                  = var.region
   environment             = var.environment
   cluster                 = var.cluster
   instance_group          = var.instance_group
@@ -35,12 +36,18 @@ module "ecs_instances" {
   min_size                = var.min_size
   desired_capacity        = var.desired_capacity
   vpc_id                  = module.network.vpc_id
+  aws_alb_target_group    = module.alb.default_alb_target_group
+  aws_alb_http_listener   = module.alb.http_alb_listener
+  ecs_instance_role_arn   = aws_iam_role.ecs_instance_role.arn
+  ecs_instance_ec2_role   = aws_iam_role_policy_attachment.ecs_ec2_role
+  aws_ecs_cluster_id      = aws_ecs_cluster.cluster.id
   iam_instance_profile_id = aws_iam_instance_profile.ecs.id
   key_name                = var.key_name
   load_balancers          = var.load_balancers
   depends_id              = module.network.depends_id
   docker_image_url_flask  = var.docker_image_url_flask
   docker_image_url_nginx  = var.docker_image_url_nginx
+  rds_cluster             = module.rds.rds_cluster
   rds_hostname            = module.rds.rds_cluster_endpoint
   rds_db_name             = var.rds_db_name
   rds_username            = var.rds_username

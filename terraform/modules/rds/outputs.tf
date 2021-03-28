@@ -1,3 +1,7 @@
+output "rds_cluster" {
+  value = aws_rds_cluster.aurora_db_cluster
+}
+
 output "rds_cluster_id" {
   value = aws_rds_cluster.aurora_db_cluster.cluster_identifier
 }

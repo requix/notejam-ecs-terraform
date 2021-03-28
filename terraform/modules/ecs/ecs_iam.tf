@@ -1,6 +1,6 @@
 resource "aws_iam_role" "ecs_instance_role" {
   name = "${var.environment}_ecs_instance_role"
-  assume_role_policy = file("${path.root}/policies/assume_role_policy.json")
+  assume_role_policy = file("${path.root}/policies/ecs_instance_policy.json")
 }
 
 resource "aws_iam_instance_profile" "ecs" {

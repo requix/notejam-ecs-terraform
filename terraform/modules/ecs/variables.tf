@@ -1,3 +1,7 @@
+variable "region" {
+  description = "The AWS region to create resources in."
+}
+
 variable "environment" {
   description = "The name of the environment"
 }

@@ -1,3 +1,7 @@
+variable "region" {
+  description = "The AWS region to create resources in."
+}
+
 variable "environment" {
   description = "The name of the environment"
 }
@@ -13,6 +17,26 @@ variable "instance_group" {
 
 variable "vpc_id" {
   description = "The VPC id"
+}
+
+variable "aws_alb_target_group" {
+  description = "Target group of Load Balancer"
+}
+
+variable "aws_alb_http_listener" {
+  description = "Load Balancer HTTP listener "
+}
+
+variable "ecs_instance_role_arn" {
+  description = "ECS instance role"
+}
+
+variable "ecs_instance_ec2_role" {
+  description = "ECS instance EC2 role"
+}
+
+variable "aws_ecs_cluster_id" {
+  description = "ECS Cluster Id"
 }
 
 variable "aws_ami" {
@@ -65,6 +89,10 @@ variable "key_name" {
 variable "ecs_config" {
   default     = "echo '' > /etc/ecs/ecs.config"
   description = "Specify ecs configuration or get it from S3. Example: aws s3 cp s3://some-bucket/ecs.config /etc/ecs/ecs.config"
+}
+
+variable "rds_cluster" {  
+  description = "Provisioned RDS Cluster"
 }
 
 variable "rds_hostname" {  

@@ -9,17 +9,26 @@ module "network" {
   depends_id           = ""
 }
 
-module "rds" {
-  source               = "../rds"
+module "bastion_host" {
+  source               = "../bastion_host"
   
   environment          = var.environment
-  vpc_id               = module.network.vpc_id
-  private_subnet_ids   = module.network.private_subnet_ids
-  rds_db_name          = var.rds_db_name
-  rds_username         = var.rds_username
-  rds_password         = var.rds_password
-  rds_instance_class   = var.rds_instance_class
-  ecs_security_group   = module.ecs_instances.ecs_instance_security_group_id
+  subnet_id            = module.network.public_subnet_ids[0]
+  internal_networks    = var.private_subnet_cidrs
+  ssh_key              = var.key_name
+}
+
+module "rds" {
+ source               = "../rds"
+ 
+ environment          = var.environment
+ vpc_id               = module.network.vpc_id
+ private_subnet_ids   = module.network.private_subnet_ids
+ rds_db_name          = var.rds_db_name
+ rds_username         = var.rds_username
+ rds_password         = var.rds_password
+ rds_instance_class   = var.rds_instance_class
+ ecs_security_group   = module.ecs_instances.ecs_instance_security_group_id
 }
 
 module "ecs_instances" {
@@ -38,8 +47,7 @@ module "ecs_instances" {
   vpc_id                  = module.network.vpc_id
   aws_alb_target_group    = module.alb.default_alb_target_group
   aws_alb_http_listener   = module.alb.http_alb_listener
-  ecs_instance_role_arn   = aws_iam_role.ecs_instance_role.arn
-  ecs_instance_ec2_role   = aws_iam_role_policy_attachment.ecs_ec2_role
+  ecs_service_role        = aws_iam_role.ecs_service_role
   aws_ecs_cluster_id      = aws_ecs_cluster.cluster.id
   iam_instance_profile_id = aws_iam_instance_profile.ecs.id
   key_name                = var.key_name
@@ -48,7 +56,8 @@ module "ecs_instances" {
   docker_image_url_flask  = var.docker_image_url_flask
   docker_image_url_nginx  = var.docker_image_url_nginx
   rds_cluster             = module.rds.rds_cluster
-  rds_hostname            = module.rds.rds_cluster_endpoint
+  rds_hostname            = module.rds.rds_cluster_hostname
+  rds_port                = module.rds.rds_cluster_port
   rds_db_name             = var.rds_db_name
   rds_username            = var.rds_username
   rds_password            = var.rds_password

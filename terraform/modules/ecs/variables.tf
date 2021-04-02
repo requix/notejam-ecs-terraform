@@ -38,7 +38,7 @@ variable "load_balancers" {
 
 variable "availability_zones" {
   type        = list
-  description = "List of availability zones you want. Example: eu-west-1a and eu-west-1b"
+  description = "List of availability zones you want. Example: eu-central-1a and eu-central-1b"
 }
 
 variable "max_size" {
@@ -100,4 +100,8 @@ variable "docker_image_url_nginx" {
 
 variable "flask_app" {
   description = "FLASK APP variable"  
+}
+
+variable "log_retention_in_days" {
+  default = 30
 }

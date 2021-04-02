@@ -16,6 +16,10 @@ variable "allowed_hosts" {
   default     = ["0.0.0.0/0"]
 }
 
+variable "ecs_security_group" {
+  description = "Security group id of ECS instance"
+}
+
 variable "instance_type" {
   description = "The type of instance to start."
   default     = "t3.micro"
@@ -53,7 +57,7 @@ data "aws_subnet" "public" {
 
 locals {
   vpc_id        = data.aws_subnet.public.vpc_id
-  environment   = var.projenvironmentect
+  environment   = var.environment
   ami_id        = data.aws_ami.latest_ami.id
   disk_size     = var.disk_size
   subnet_id     = var.subnet_id

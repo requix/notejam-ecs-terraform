@@ -17,7 +17,7 @@ resource "aws_instance" "server" {
 
   tags = {
     Name        = "Bastion host"
-    Environment = loacl.environment
+    Environment = local.environment
   }
 }
 

@@ -39,3 +39,12 @@ resource "aws_security_group_rule" "intranet" {
   security_group_id = aws_security_group.bastion.id
 }
 
+resource "aws_security_group_rule" "bastion_to_ecs" {
+  protocol                 = "TCP"
+  from_port                = 22
+  to_port                  = 22
+  type                     = "ingress"  
+  source_security_group_id = aws_security_group.bastion.id
+  security_group_id        = var.ecs_security_group
+}
+

@@ -16,6 +16,7 @@ module "bastion_host" {
   subnet_id            = module.network.public_subnet_ids[0]
   internal_networks    = var.private_subnet_cidrs
   ssh_key              = var.key_name
+  ecs_security_group   = module.ecs_instances.ecs_instance_security_group_id
 }
 
 module "rds" {
@@ -24,6 +25,7 @@ module "rds" {
  environment          = var.environment
  vpc_id               = module.network.vpc_id
  private_subnet_ids   = module.network.private_subnet_ids
+ availability_zones   = var.availability_zones
  rds_db_name          = var.rds_db_name
  rds_username         = var.rds_username
  rds_password         = var.rds_password
@@ -56,7 +58,7 @@ module "ecs_instances" {
   docker_image_url_flask  = var.docker_image_url_flask
   docker_image_url_nginx  = var.docker_image_url_nginx
   rds_cluster             = module.rds.rds_cluster
-  rds_hostname            = module.rds.rds_cluster_hostname
+  rds_hostname            = module.rds.rds_cluster_endpoint
   rds_port                = module.rds.rds_cluster_port
   rds_db_name             = var.rds_db_name
   rds_username            = var.rds_username

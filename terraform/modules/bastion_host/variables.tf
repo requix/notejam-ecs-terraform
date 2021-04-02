@@ -22,12 +22,12 @@ variable "ecs_security_group" {
 
 variable "instance_type" {
   description = "The type of instance to start."
-  default     = "t3.micro"
+  default     = "t2.micro"
 }
 
 variable "disk_size" {
   description = "The size of the root volume in gigabytes."
-  default     = 10
+  default     = 30
 }
 
 variable "internal_networks" {

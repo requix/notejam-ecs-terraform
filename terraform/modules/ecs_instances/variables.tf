@@ -19,22 +19,6 @@ variable "vpc_id" {
   description = "The VPC id"
 }
 
-variable "aws_alb_target_group" {
-  description = "Target group of Load Balancer"
-}
-
-variable "aws_alb_http_listener" {
-  description = "Load Balancer HTTP listener "
-}
-
-variable "ecs_service_role" {
-  description = "ECS Service role"
-}
-
-variable "aws_ecs_cluster_id" {
-  description = "ECS Cluster Id"
-}
-
 variable "aws_ami" {
   description = "The AWS ami id to use"
 }
@@ -134,40 +118,4 @@ variable "key_name" {
 variable "ecs_config" {
   default     = "echo '' > /etc/ecs/ecs.config"
   description = "Specify ecs configuration or get it from S3. Example: aws s3 cp s3://some-bucket/ecs.config /etc/ecs/ecs.config"
-}
-
-variable "rds_cluster" {  
-  description = "Provisioned RDS Cluster"
-}
-
-variable "rds_hostname" {  
-  description = "Provisioned RDS host name"
-}
-
-variable "rds_port" {  
-  description = "Provisioned RDS port"
-}
-
-variable "rds_db_name" {
-  description = "RDS database name"  
-}
-
-variable "rds_username" {
-  description = "RDS database username"
-}
-
-variable "rds_password" {
-  description = "RDS database password"
-}
-
-variable "docker_image_url_flask" {
-  description = "Docker image to run in the ECS cluster"  
-}
-
-variable "docker_image_url_nginx" {
-  description = "Docker image to run in the ECS cluster"  
-}
-
-variable "flask_app" {
-  description = "FLASK APP variable"  
 }

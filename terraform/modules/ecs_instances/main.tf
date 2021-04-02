@@ -1,4 +1,3 @@
-# Get latest Linux 2 ECS-optimized AMI by Amazon
 data "aws_ami" "latest_ecs_ami" {
   most_recent = true
 
@@ -119,6 +118,65 @@ data "template_file" "app" {
     rds_username            = var.rds_username
     rds_password            = var.rds_password
     rds_hostname            = var.rds_hostname
+    rds_port                = var.rds_port
+  }
+}
+
+resource "aws_autoscaling_policy" "up" {
+  name                   = "${var.cluster}-scaleUp"
+  scaling_adjustment     = var.scaling_adjustment_up
+  adjustment_type        = var.adjustment_type
+  cooldown               = var.policy_cooldown
+  policy_type            = "SimpleScaling"
+  autoscaling_group_name = aws_autoscaling_group.asg.name
+  count                  = var.alarm_actions_enabled ? 1 : 0
+}
+
+resource "aws_autoscaling_policy" "down" {
+  name                   = "${var.cluster}-scaleDown"
+  scaling_adjustment     = var.scaling_adjustment_down
+  adjustment_type        = var.adjustment_type
+  cooldown               = var.policy_cooldown
+  policy_type            = "SimpleScaling"
+  autoscaling_group_name = aws_autoscaling_group.asg.name
+  count                  = var.alarm_actions_enabled ? 1 : 0
+}
+
+resource "aws_cloudwatch_metric_alarm" "scaleUp" {
+  alarm_name          = "${var.cluster}-scaleUp"
+  alarm_description   = "ECS cluster scaling metric above threshold"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = var.evaluation_periods
+  metric_name         = var.scaling_metric_name
+  namespace           = "AWS/ECS"
+  statistic           = "Average"
+  period              = var.alarm_period
+  threshold           = var.alarm_threshold_up
+  actions_enabled     = var.alarm_actions_enabled
+  count               = var.alarm_actions_enabled ? 1 : 0
+  alarm_actions       = [aws_autoscaling_policy.up[0].arn]
+
+  dimensions = {
+    ClusterName = var.cluster
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "scaleDown" {
+  alarm_name          = "${var.cluster}-scaleDown"
+  alarm_description   = "ECS cluster scaling metric under threshold"
+  comparison_operator = "LessThanThreshold"
+  evaluation_periods  = var.evaluation_periods
+  metric_name         = var.scaling_metric_name
+  namespace           = "AWS/ECS"
+  statistic           = "Average"
+  period              = var.alarm_period
+  threshold           = var.alarm_threshold_down
+  actions_enabled     = var.alarm_actions_enabled
+  count               = var.alarm_actions_enabled ? 1 : 0
+  alarm_actions       = [aws_autoscaling_policy.down[0].arn]
+
+  dimensions = {
+    ClusterName = var.cluster
   }
 }
 
@@ -132,8 +190,9 @@ resource "aws_ecs_service" "production" {
   name            = "${var.cluster}-service"
   cluster         = var.aws_ecs_cluster_id
   task_definition = aws_ecs_task_definition.app.arn
-  iam_role        = var.ecs_instance_role_arn
-  depends_on      = [var.aws_alb_http_listener, var.ecs_instance_ec2_role]
+  iam_role        = var.ecs_service_role.arn
+  desired_count   = 2
+  depends_on      = [var.aws_alb_http_listener, var.ecs_service_role]
 
   load_balancer {
     target_group_arn = var.aws_alb_target_group

@@ -20,24 +20,24 @@ vpc_cidr = "10.0.0.0/16"
 
 # The IP ranges to use for the public subnets in your VPC.
 # Must be within the IP range of your VPC.
-public_subnet_cidrs = ["10.0.0.0/24", "10.0.1.0/24"]
+public_subnet_cidrs = ["10.0.0.0/24", "10.0.1.0/24", "10.0.2.0/24"]
 
 # The IP ranges to use for the private subnets in your VPC.
 # Must be within the IP range of your VPC.
-private_subnet_cidrs = ["10.0.50.0/24", "10.0.51.0/24"]
+private_subnet_cidrs = ["10.0.50.0/24", "10.0.51.0/24", "10.0.52.0/24"]
 
 # The AWS availability zones to create subnets in.
 # For high-availability, we need at least two.
-availability_zones = ["eu-central-1a", "eu-central-1b"]
+availability_zones = ["eu-central-1a", "eu-central-1b", "eu-central-1c"]
 
 # Maximum number of instances in the ECS cluster.
-max_size = 1
+max_size = 10
 
 # Minimum number of instances in the ECS cluster.
 min_size = 1
 
 # Ideal number of instances in the ECS cluster.
-desired_capacity = 1
+desired_capacity = 3
 
 # Size of instances in the ECS cluster.
 instance_type = "t2.micro"

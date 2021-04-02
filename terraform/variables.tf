@@ -33,7 +33,7 @@ variable "private_subnet_cidrs" {
 }
 
 variable "availability_zones" {
-  description = "The AWS availability zones to create subnets in."
+  description = "List of availability zones you want. Example: eu-central-1a and eu-central-1b"
   type = list
 }
 

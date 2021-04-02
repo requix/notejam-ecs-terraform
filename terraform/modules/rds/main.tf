@@ -3,7 +3,6 @@ resource "aws_db_subnet_group" "rds_subnet_group" {
   subnet_ids = var.private_subnet_ids
 }
 
-# RDS Security Group (traffic ECS -> RDS)
 resource "aws_security_group" "rds" {
   name        = "rds-security-group"
   description = "Allows inbound access from ECS only"
@@ -28,15 +27,16 @@ resource "aws_rds_cluster" "aurora_db_cluster" {
   cluster_identifier            = "${var.environment}-aurora-cluster"
   engine                        = "aurora-mysql"
   engine_version                = "5.7.mysql_aurora.2.03.2"
-  availability_zones            = ["eu-central-1a", "eu-central-1b"]
+  port                          = "5432"
+  availability_zones            = var.availability_zones
   database_name                 = var.rds_db_name
   master_username               = var.rds_username
   master_password               = var.rds_password
   backup_retention_period       = 14
   preferred_backup_window       = "02:00-03:00"
   preferred_maintenance_window  = "wed:03:00-wed:04:00"
+  skip_final_snapshot           = true
   db_subnet_group_name          = aws_db_subnet_group.rds_subnet_group.name
-  final_snapshot_identifier     = "${var.environment}-aurora-cluster"
   vpc_security_group_ids        = [aws_security_group.rds.id]
 
   tags = {
@@ -47,7 +47,7 @@ resource "aws_rds_cluster" "aurora_db_cluster" {
 }
 
 resource "aws_rds_cluster_instance" "aurora_cluster_instance" {
-  count                 = 2
+  count                 = 3
   identifier            = "${var.environment}-aurora-instance-${count.index}"
   cluster_identifier    = aws_rds_cluster.aurora_db_cluster.id
   engine                = "aurora-mysql"

@@ -11,6 +11,11 @@ variable "private_subnet_ids" {
   description = "List of private subnet ids for every availability zone"
 }
 
+variable "availability_zones" {
+  type        = list
+  description = "List of availability zones you want. Example: eu-central-1a and eu-central-1b"
+}
+
 variable "ecs_security_group" {
   description = "Security group id of ECS instance"
 }

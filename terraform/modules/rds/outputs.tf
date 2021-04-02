@@ -7,5 +7,9 @@ output "rds_cluster_id" {
 }
 
 output "rds_cluster_endpoint" {
-  value = aws_rds_cluster.aurora_db_cluster.endpoint
+  value = aws_rds_cluster.aurora_db_cluster.endpoint  
+}
+
+output "rds_cluster_port" {
+  value = aws_rds_cluster.aurora_db_cluster.port  
 }

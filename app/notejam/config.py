@@ -13,6 +13,13 @@ class Config(object):
 
 class ProductionConfig(Config):
     DEBUG = False
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://'\
+        '{user}:{pw}@{url}:{port}/{db}'.format(
+            user=os.getenv("RDS_USERNAME"),
+            pw=os.getenv("RDS_PASSWORD"),
+            url=os.getenv("RDS_HOSTNAME"),
+            port=os.getenv("RDS_PORT"),
+            db=os.getenv("RDS_DB_NAME"))
 
 
 class DevelopmentConfig(Config):

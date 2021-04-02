@@ -20,6 +20,10 @@
         "value": "${flask_app}"
       },
       {
+        "name": "DATABASE",
+        "value": "rds"
+      },
+      {
         "name": "RDS_DB_NAME",
         "value": "${rds_db_name}"
       },
@@ -37,7 +41,7 @@
       },
       {
         "name": "RDS_PORT",
-        "value": "5432"
+        "value": "${rds_port}"
       }      
     ],    
     "logConfiguration": {

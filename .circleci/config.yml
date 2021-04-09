@@ -61,7 +61,7 @@ apply_job: &apply_job
         command: |
           source $BASH_ENV
           cd terraform
-          terraform apply -var-file=config/$TERRAFORM_ENVIRONMENT.tfvars --auto-approve terraform.plan 
+          terraform apply --auto-approve terraform.plan 
 jobs:
 
   build:

@@ -49,4 +49,4 @@ flask_app = "notejam/__init__.py"
 health_check_path = "/healthcheck"
 
 # Path to an SSH public key
-ssh_pubkey_file = "~/.ssh/id_rsa.pub"
+ssh_pubkey_file = "../.keys/notejam.pub"

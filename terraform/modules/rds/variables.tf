@@ -7,12 +7,12 @@ variable "vpc_id" {
 }
 
 variable "private_subnet_ids" {
-  type        = list
+  type        = list(any)
   description = "List of private subnet ids for every availability zone"
 }
 
 variable "availability_zones" {
-  type        = list
+  type        = list(any)
   description = "List of availability zones you want. Example: eu-central-1a and eu-central-1b"
 }
 

@@ -8,7 +8,7 @@ variable "environment" {
 }
 
 variable "public_subnet_ids" {
-  type        = list
+  type        = list(any)
   description = "List of public subnet ids to place the loadbalancer in"
 }
 
@@ -21,8 +21,8 @@ variable "deregistration_delay" {
   description = "The default deregistration delay"
 }
 
-variable "health_check_path" {  
-  default = "/healthcheck"
+variable "health_check_path" {
+  default     = "/healthcheck"
   description = "Health check path"
 }
 

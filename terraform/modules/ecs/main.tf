@@ -1,6 +1,6 @@
 module "network" {
-  source               = "../network"
-  
+  source = "../network"
+
   environment          = var.environment
   vpc_cidr             = var.vpc_cidr
   public_subnet_cidrs  = var.public_subnet_cidrs
@@ -10,27 +10,27 @@ module "network" {
 }
 
 module "bastion_host" {
-  source               = "../bastion_host"
-  
-  environment          = var.environment
-  subnet_id            = module.network.public_subnet_ids[0]
-  internal_networks    = var.private_subnet_cidrs
-  ssh_key              = var.key_name
-  ecs_security_group   = module.ecs_instances.ecs_instance_security_group_id
+  source = "../bastion_host"
+
+  environment        = var.environment
+  subnet_id          = module.network.public_subnet_ids[0]
+  internal_networks  = var.private_subnet_cidrs
+  ssh_key            = var.key_name
+  ecs_security_group = module.ecs_instances.ecs_instance_security_group_id
 }
 
 module "rds" {
- source               = "../rds"
- 
- environment          = var.environment
- vpc_id               = module.network.vpc_id
- private_subnet_ids   = module.network.private_subnet_ids
- availability_zones   = var.availability_zones
- rds_db_name          = var.rds_db_name
- rds_username         = var.rds_username
- rds_password         = var.rds_password
- rds_instance_class   = var.rds_instance_class
- ecs_security_group   = module.ecs_instances.ecs_instance_security_group_id
+  source = "../rds"
+
+  environment        = var.environment
+  vpc_id             = module.network.vpc_id
+  private_subnet_ids = module.network.private_subnet_ids
+  availability_zones = var.availability_zones
+  rds_db_name        = var.rds_db_name
+  rds_username       = var.rds_username
+  rds_password       = var.rds_password
+  rds_instance_class = var.rds_instance_class
+  ecs_security_group = module.ecs_instances.ecs_instance_security_group_id
 }
 
 module "ecs_instances" {
@@ -46,7 +46,7 @@ module "ecs_instances" {
   max_size                = var.max_size
   min_size                = var.min_size
   desired_capacity        = var.desired_capacity
-  vpc_id                  = module.network.vpc_id    
+  vpc_id                  = module.network.vpc_id
   iam_instance_profile_id = aws_iam_instance_profile.ecs.id
   key_name                = var.key_name
   load_balancers          = var.load_balancers
@@ -58,18 +58,18 @@ resource "aws_ecs_cluster" "cluster" {
 }
 
 data "template_file" "app" {
-  template = "${file("${path.module}/templates/flask_app.json.tpl")}"
+  template = file("${path.module}/templates/flask_app.json.tpl")
 
   vars = {
-    region                  = var.region
-    docker_image_url_flask  = var.docker_image_url_flask
-    docker_image_url_nginx  = var.docker_image_url_nginx    
-    flask_app               = var.flask_app
-    rds_db_name             = var.rds_db_name
-    rds_username            = var.rds_username
-    rds_password            = var.rds_password
-    rds_hostname            = module.rds.rds_cluster_endpoint
-    rds_port                = module.rds.rds_cluster_port
+    region                 = var.region
+    docker_image_url_flask = var.docker_image_url_flask
+    docker_image_url_nginx = var.docker_image_url_nginx
+    flask_app              = var.flask_app
+    rds_db_name            = var.rds_db_name
+    rds_username           = var.rds_username
+    rds_password           = var.rds_password
+    rds_hostname           = module.rds.rds_cluster_endpoint
+    rds_port               = module.rds.rds_cluster_port
   }
 }
 

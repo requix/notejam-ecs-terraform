@@ -98,11 +98,11 @@ resource "aws_autoscaling_group" "asg" {
 }
 
 data "template_file" "user_data" {
-  template = "${file("${path.module}/templates/user_data.sh")}"
+  template = file("${path.module}/templates/user_data.sh")
 
   vars = {
-    ecs_config        = var.ecs_config    
-    cluster_name      = var.cluster
+    ecs_config   = var.ecs_config
+    cluster_name = var.cluster
   }
 }
 

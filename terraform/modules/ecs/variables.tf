@@ -21,23 +21,23 @@ variable "vpc_cidr" {
 }
 
 variable "private_subnet_cidrs" {
-  type        = list
+  type        = list(any)
   description = "List of private cidrs, for every availability zone you want you need one. Example: 10.0.0.0/24 and 10.0.1.0/24"
 }
 
 variable "public_subnet_cidrs" {
-  type        = list
+  type        = list(any)
   description = "List of public cidrs, for every availability zone you want you need one. Example: 10.0.0.0/24 and 10.0.1.0/24"
 }
 
 variable "load_balancers" {
-  type        = list
+  type        = list(any)
   default     = []
   description = "The load balancers to couple to the instances"
 }
 
 variable "availability_zones" {
-  type        = list
+  type        = list(any)
   description = "List of availability zones you want. Example: eu-central-1a and eu-central-1b"
 }
 
@@ -71,7 +71,7 @@ variable "ecs_config" {
 }
 
 variable "rds_db_name" {
-  description = "RDS database name" 
+  description = "RDS database name"
 }
 
 variable "rds_username" {
@@ -86,20 +86,20 @@ variable "rds_instance_class" {
   description = "RDS instance type"
 }
 
-variable "health_check_path" {  
+variable "health_check_path" {
   description = "Health check path"
 }
 
 variable "docker_image_url_flask" {
-  description = "Docker image to run in the ECS cluster"  
+  description = "Docker image to run in the ECS cluster"
 }
 
 variable "docker_image_url_nginx" {
-  description = "Docker image to run in the ECS cluster"  
+  description = "Docker image to run in the ECS cluster"
 }
 
 variable "flask_app" {
-  description = "FLASK APP variable"  
+  description = "FLASK APP variable"
 }
 
 variable "log_retention_in_days" {

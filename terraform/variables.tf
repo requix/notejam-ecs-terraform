@@ -24,17 +24,17 @@ variable "vpc_cidr" {
 
 variable "public_subnet_cidrs" {
   description = "The IP ranges to use for the public subnets in your VPC."
-  type = list
+  type        = list(any)
 }
 
 variable "private_subnet_cidrs" {
   description = "The IP ranges to use for the private subnets in your VPC."
-  type = list
+  type        = list(any)
 }
 
 variable "availability_zones" {
   description = "List of availability zones you want. Example: eu-central-1a and eu-central-1b"
-  type = list
+  type        = list(any)
 }
 
 variable "max_size" {
@@ -54,15 +54,15 @@ variable "instance_type" {
 }
 
 variable "flask_app" {
-  description = "FLASK APP variable"  
+  description = "FLASK APP variable"
 }
 
 variable "docker_image_url_flask" {
-  description = "Docker image to run in the ECS cluster"  
+  description = "Docker image to run in the ECS cluster"
 }
 
 variable "docker_image_url_nginx" {
-  description = "Docker image to run in the ECS cluster"  
+  description = "Docker image to run in the ECS cluster"
 }
 
 variable "rds_db_name" {
@@ -80,16 +80,16 @@ variable "rds_password" {
 }
 
 variable "rds_instance_class" {
-  description = "RDS instance type"  
+  description = "RDS instance type"
   default     = "db.t2.small"
 }
 
-variable "health_check_path" {  
+variable "health_check_path" {
   description = "Health check path"
 }
 
 variable "ssh_pubkey_file" {
-  description = "Path to an SSH public key"  
+  description = "Path to an SSH public key"
 }
 
 output "default_alb_target_group" {

@@ -3,8 +3,8 @@ terraform {
 }
 
 provider "aws" {
-  region = var.region
-  profile = var.profile    
+  region  = var.region
+  profile = var.profile
 }
 
 data "aws_caller_identity" "current" {}
@@ -16,7 +16,7 @@ locals {
 resource "aws_s3_bucket" "terraform_state" {
 
   bucket = "${local.account_id}-terraform-states"
-  
+
   versioning {
     enabled = true
   }

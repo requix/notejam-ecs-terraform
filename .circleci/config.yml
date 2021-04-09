@@ -93,7 +93,7 @@ jobs:
           name: terraform plan
           command: |
             source $BASH_ENV            
-            terraform plan -out=terraform.plan
+            terraform plan -var-file=config/$TERRAFORM_ENVIRONMENT.tfvars -out=terraform.plan
       - persist_to_workspace:
           root: *working_directory
           paths:

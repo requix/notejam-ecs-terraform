@@ -34,7 +34,7 @@ availability_zones = ["eu-central-1a", "eu-central-1b", "eu-central-1c"]
 max_size = 10
 
 # Minimum number of instances in the ECS cluster.
-min_size = 1
+min_size = 3
 
 # Ideal number of instances in the ECS cluster.
 desired_capacity = 3

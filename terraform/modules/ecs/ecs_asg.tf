@@ -4,7 +4,7 @@ resource "aws_appautoscaling_target" "ecs_target" {
   resource_id        = "service/${var.cluster}/${var.cluster}-service"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
-  depends_on         = [aws_ecs_cluster.cluster]
+  depends_on         = [aws_ecs_service.ecs_service]
 }
 
 resource "aws_appautoscaling_policy" "ecs_policy_memory" {

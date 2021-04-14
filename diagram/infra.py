@@ -29,9 +29,13 @@ with Diagram("Notejam Cloud Infrastructure", show=False, direction="LR"):
                 PublicSubnet("Subnet a"),
                 PublicSubnet("Subnet b"),
                 PublicSubnet("Subnet c"),
+                ]            
+            nat_gateways = [
+                NATGateway("NAT Gateway a"),
+                NATGateway("NAT Gateway b"),
+                NATGateway("NAT Gateway c"),
                 ]
-            bastion_host = EC2("Bastion Host")                
-        nat_gateway = NATGateway("NAT Gateway")
+            bastion_host = EC2("Bastion Host")
         with Cluster("Private Network"):
             private_subnets = [
                 PrivateSubnet("Subnet a"),
@@ -72,9 +76,13 @@ with Diagram("Notejam Cloud Infrastructure", show=False, direction="LR"):
     ssl_certificate - dns_name
     dns_name - load_balancer
     load_balancer - public_subnets
-    public_subnets - nat_gateway
+    public_subnets[0] - nat_gateways[0]
+    public_subnets[1] - nat_gateways[1]
+    public_subnets[2] - nat_gateways[2]    
+    nat_gateways[0] - private_subnets[0]
+    nat_gateways[1] - private_subnets[1]
+    nat_gateways[2] - private_subnets[2]
     public_subnets[0] - bastion_host
-    nat_gateway - private_subnets
     bastion_host - private_subnets
     private_subnets - autoscaling_group
     autoscaling_group - autoscaling_group_instances

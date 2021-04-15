@@ -87,7 +87,7 @@ aws ecr create-repository \
 * Push an **nginx** image to Amazon ECR
 
 ```bash
-cd app
+cd nginx
 docker build -t $AWS_ACCOUNT.dkr.ecr.eu-central-1.amazonaws.com/$NGINX_CONTAINER_NAME:latest .
 docker push $AWS_ACCOUNT.dkr.ecr.eu-central-1.amazonaws.com/$NGINX_CONTAINER_NAME:latest
 ```

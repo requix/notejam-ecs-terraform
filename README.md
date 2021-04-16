@@ -56,6 +56,7 @@ Open http://localhost:5007/
 ## How to create and push container images to AWS ECR
 
 * Authenticate to your default registry
+
 `aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT.dkr.ecr.AWS_REGION.amazonaws.com`
 
 * Create repository in ECR for **application** container
@@ -95,6 +96,15 @@ docker push $AWS_ACCOUNT.dkr.ecr.eu-central-1.amazonaws.com/$NGINX_CONTAINER_NAM
 ## How to deploy infrastructure via Terraform
 
 * Specify `profile`, `region` and `availability_zones` variables in **terraform/config/prod.tfvars** or keep default values
+
+* Create S3 bucket for Remote Terraform State
+
+```bash
+cd ./terraform/s3-backend
+terraform init
+terraform plan
+terraform apply
+```
 
 * Run it (example for production environment)
 

@@ -15,7 +15,7 @@ locals {
 
 resource "aws_s3_bucket" "terraform_state" {
 
-  bucket = "${local.account_id}-terraform-states"
+  bucket = "notejam-ecs-terraform-states"
 
   versioning {
     enabled = true

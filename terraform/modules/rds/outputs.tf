@@ -1,5 +1,5 @@
 output "rds_cluster" {
-  value = aws_rds_cluster.aurora_db_cluster
+  value     = aws_rds_cluster.aurora_db_cluster
   sensitive = true
 }
 

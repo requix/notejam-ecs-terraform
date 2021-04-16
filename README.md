@@ -117,3 +117,13 @@ terraform apply -var-file=config/${env}.tfvars
 * Destroy infrastructure if needed
 
 `terraform destroy -var-file=config/${env}.tfvars`
+
+## Create DB after first launch
+
+* SSH to one of EC2 instances via Bastion Host
+
+`ssh -J ec2-user@<bastion_ip> ec2-user@<ec2_private_ip>`
+
+* Run create_db command in application container
+
+`docker exec -it <container_id> python manage.py create_db`
